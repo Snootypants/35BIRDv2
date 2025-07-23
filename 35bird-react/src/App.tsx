@@ -1,16 +1,12 @@
-import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import Header from './components/Header'
-import Hero from './components/Hero'
-import ProjectGrid from './components/ProjectGrid'
+import { useTheme } from './hooks/useTheme'
+import Header from './components/layout/Header'
+import Hero from './components/sections/Hero'
+import ProjectGrid from './components/sections/ProjectGrid'
 import './App.css'
 
 function App() {
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark')
-
-  const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light')
-  }
+  const { theme, toggleTheme } = useTheme()
 
   return (
     <AnimatePresence>

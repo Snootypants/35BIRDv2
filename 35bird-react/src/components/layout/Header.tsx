@@ -1,9 +1,10 @@
 import { History, LogIn } from 'lucide-react'
-import { Button } from './ui/button'
-import { ThemeToggle } from './ui/theme-toggle'
+import { Button } from '../ui/button'
+import { ThemeToggle } from './theme-toggle'
+import type { Theme } from '../../types'
 
 interface HeaderProps {
-  theme: 'light' | 'dark'
+  theme: Theme
   onThemeToggle: () => void
 }
 

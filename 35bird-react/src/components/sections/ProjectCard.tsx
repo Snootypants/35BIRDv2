@@ -1,27 +1,8 @@
 import { motion } from 'framer-motion'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from './ui/card'
-import { Button } from './ui/button'
-import { Typography } from './ui/typography'
-
-interface Project {
-  id: string
-  title: string
-  tagline: string
-  description: string
-  status: string
-  splashImage: string
-  iconImage: string
-  slug: string
-  folder: string
-  links: {
-    live: string | null
-    repo: string | null
-  }
-  features: string[]
-  theme: string
-  priority: number
-  lastUpdate?: string
-}
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../ui/card'
+import { Button } from '../ui/button'
+import { Typography } from '../ui/typography'
+import type { Project } from '../../types'
 
 interface ProjectCardProps {
   project: Project

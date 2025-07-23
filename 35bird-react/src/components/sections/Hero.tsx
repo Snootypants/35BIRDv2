@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Typography } from './ui/typography'
+import { Typography } from '../ui/typography'
 
 function Hero() {
   return (

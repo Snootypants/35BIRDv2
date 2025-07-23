@@ -1,27 +1,8 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import ProjectCard from './ProjectCard'
-import projectsData from '../data/projects.json'
-
-interface Project {
-  id: string
-  title: string
-  tagline: string
-  description: string
-  status: string
-  splashImage: string
-  iconImage: string
-  slug: string
-  folder: string
-  links: {
-    live: string | null
-    repo: string | null
-  }
-  features: string[]
-  theme: string
-  priority: number
-  lastUpdate?: string
-}
+import projectsData from '../../data/projects.json'
+import type { Project } from '../../types'
 
 function ProjectGrid() {
   const [projects, setProjects] = useState<Project[]>([])

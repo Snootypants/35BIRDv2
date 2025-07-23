@@ -1340,3 +1340,104 @@
 - `/styles/layouts/grid.css` - Added padding to prevent tiles from hitting header
 
 **Result**: Clean, simple tiles that scroll naturally together with no animations, stopping appropriately before the menu bar.
+
+---
+
+### Review - re44.md React Migration Setup (07.23.25 - 20:02)
+
+**Summary of Changes:**
+✅ Successfully completed initial setup phases for React + TypeScript + TailwindCSS + shadcn/ui migration
+
+**Completed Stages:**
+1. **Vite + React + TypeScript Project**: Created new project at `/35bird-react/` with proper scaffolding
+2. **TailwindCSS Configuration**: Set up Tailwind with content paths, PostCSS config, and base directives
+3. **shadcn/ui Integration**: Manually configured shadcn/ui with components.json, utils function, theme colors, and CSS variables
+4. **Animation/Icon Libraries**: Added framer-motion and lucide-react to package.json dependencies
+
+**Key Files Created:**
+- `/35bird-react/` - New React project directory
+- `tailwind.config.js` - TailwindCSS configuration with shadcn/ui theme
+- `postcss.config.js` - PostCSS configuration
+- `components.json` - shadcn/ui configuration
+- `src/lib/utils.ts` - Utility functions for component styling
+- Updated `src/index.css` - TailwindCSS directives and CSS variables
+- Updated `package.json` - Added framer-motion and lucide-react dependencies
+
+**Status**: Ready to proceed with asset migration and component conversion phases
+
+**Next Steps**: 
+- Migrate static assets from original project
+- Convert HTML structure to React components
+- Recreate styling with Tailwind classes
+
+---
+
+### Checklist for implementing re44.md - Upgrade to React + TypeScript + Tailwind + shadcn/ui stack
+
+[x] **1️⃣ Initialize new Vite + React + TypeScript project**
+  [x] Run `npm create vite@latest 35bird-react -- --template react-ts`
+  [x] Navigate to project directory and install dependencies
+  [x] Verify basic React app runs correctly
+
+[x] **2️⃣ Set up TailwindCSS with proper configuration**
+  [x] Install TailwindCSS: `npm install -D tailwindcss postcss autoprefixer`
+  [x] Initialize Tailwind: `npx tailwindcss init -p`
+  [x] Configure content paths in tailwind.config.js for React components
+  [x] Add Tailwind directives to main CSS file
+
+[x] **3️⃣ Install and initialize shadcn/ui component system**
+  [x] Install shadcn/ui: `npx shadcn-ui@latest init`
+  [x] Configure shadcn/ui with project preferences (TypeScript, Tailwind)
+  [x] Install basic shadcn/ui components needed for the project
+
+[+] **4️⃣ Install animation and icon libraries**
+  [ ] Install framer-motion: `npm install framer-motion`
+  [ ] Install lucide-react: `npm install lucide-react`
+  [ ] Verify both libraries are properly imported and functional
+
+[ ] **5️⃣ Migrate static assets to React project structure**
+  [ ] Move images from /assets/images/ to React public/ directory
+  [ ] Move project data from /data/projects.json to React src/data/
+  [ ] Update all asset paths to work with React routing
+
+[ ] **6️⃣ Convert index.html structure to React components**
+  [ ] Create main App.tsx component with overall layout
+  [ ] Build Header component with navigation and theme toggle
+  [ ] Create Hero component with title, subtitle, and fluid background
+  [ ] Develop ProjectGrid component with project cards
+
+[ ] **7️⃣ Recreate existing styling with Tailwind classes**
+  [ ] Convert CSS variables to Tailwind custom theme configuration
+  [ ] Recreate dark/light theme system using Tailwind dark mode
+  [ ] Convert all component styles from vanilla CSS to Tailwind classes
+  [ ] Ensure no inline styles or vanilla CSS remains
+
+[ ] **8️⃣ Implement reusable UI components in /components/ui**
+  [ ] Create Card component for project tiles using shadcn/ui
+  [ ] Build Button component for navigation and actions
+  [ ] Develop ThemeToggle component with dark/light switching
+  [ ] Create Typography components for consistent text styling
+
+[ ] **9️⃣ Integrate framer-motion animations**
+  [ ] Add fluid background animation using canvas + framer-motion
+  [ ] Implement project card hover effects with motion components
+  [ ] Create smooth theme transition animations
+  [ ] Add page load and scroll-based animations
+
+[ ] **🔟 Replace icons with lucide-react equivalents**
+  [ ] Find lucide-react alternatives for existing icon assets
+  [ ] Replace theme toggle icons with lucide components
+  [ ] Update navigation icons with lucide equivalents
+  [ ] Remove old PNG/SVG icon files
+
+[ ] **1️⃣1️⃣ Clean up project structure for modern React**
+  [ ] Organize components into logical folders (components/ui, components/layout)
+  [ ] Create custom hooks for theme management and fluid animation
+  [ ] Set up proper TypeScript interfaces for project data
+  [ ] Ensure all imports use absolute paths and proper structure
+
+[ ] **1️⃣2️⃣ Final testing and verification**
+  [ ] Test all functionality matches original static site
+  [ ] Verify theme switching works properly in React
+  [ ] Confirm responsive design works across all screen sizes
+  [ ] Check that all animations and interactions function correctly

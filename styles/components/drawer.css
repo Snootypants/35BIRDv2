@@ -1,0 +1,274 @@
+/* Drawer Component - Glass design */
+.drawer {
+  position: fixed;
+  background: var(--color-drawer-bg);
+  backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-drawer);
+  border: 1px solid var(--color-drawer-border);
+  z-index: var(--z-modal);
+  transition: var(--transition-drawer);
+  overflow: hidden;
+  opacity: 0; /* Start hidden */
+  visibility: hidden; /* Hide from screen readers when not active */
+  color: var(--color-text-primary);
+}
+
+/* Prevent body scroll when drawer is active */
+body.drawer-open {
+  overflow: hidden;
+}
+
+.drawer[aria-hidden="true"] {
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.drawer[aria-hidden="false"] {
+  pointer-events: auto;
+  opacity: 1; /* Fade in */
+  visibility: visible;
+}
+
+/* Drawer positions */
+.drawer--top {
+  top: 80px; /* Below header */
+  right: var(--space-4);
+  width: 360px; /* Slightly wider */
+  max-width: 90vw;
+  border-radius: var(--radius-xl); /* More rounded corners */
+  transform: translateY(-20px); /* Initial slight offset for animation */
+}
+
+.drawer--top.drawer--active {
+  transform: translateY(0); /* Slide in */
+}
+
+.drawer--bottom {
+  bottom: 0;
+  left: 50%;
+  width: 90%;
+  max-width: 700px;
+  height: 45vh; /* Slightly taller */
+  max-height: 600px;
+  border-radius: 20px 20px 0 0;
+  transform: translate(-50%, 20px); /* Initial slight offset for animation */
+}
+
+.drawer--bottom.drawer--active {
+  transform: translate(-50%, 0); /* Slide in */
+}
+
+.drawer--left {
+  top: 0;
+  left: 0;
+  width: 320px;
+  height: 100vh;
+  border-radius: 0 var(--radius-xl) var(--radius-xl) 0;
+  transform: translateX(-20px);
+}
+
+.drawer--left.drawer--active {
+  transform: translateX(0);
+}
+
+.drawer--right {
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 100vh;
+  border-radius: var(--radius-xl) 0 0 var(--radius-xl);
+  transform: translateX(20px);
+}
+
+.drawer--right.drawer--active {
+  transform: translateX(0);
+}
+
+/* Drawer content */
+.drawer__close {
+  position: absolute;
+  top: var(--space-4); /* Adjust position */
+  right: var(--space-4); /* Adjust position */
+  background: none;
+  border: none;
+  font-size: var(--font-size-2xl);
+  line-height: 1;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  transition: color var(--transition-base), background-color var(--transition-base);
+  z-index: 1;
+  width: 40px; /* Larger touch target */
+  height: 40px; /* Larger touch target */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-base);
+}
+
+.drawer__close:hover {
+  color: var(--color-primary); /* Highlight on hover */
+  background-color: var(--color-bg-primary);
+}
+
+.drawer__close:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.drawer__content {
+  padding: var(--drawer-padding);
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.drawer__content pre {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: auto;
+  margin: 0;
+  padding: var(--space-4);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-lg);
+  border: none;
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+  white-space: pre-wrap;
+  color: var(--color-text-primary);
+}
+
+.drawer--top .drawer__content {
+  padding: var(--space-5); /* Adjust padding */
+}
+
+.drawer__content h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+/* Form styles within drawer */
+.drawer .login-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.drawer .login-form label {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-1);
+}
+
+.drawer .login-form input {
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md); /* Slightly more rounded */
+  font-size: var(--font-size-base);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
+
+.drawer .login-form input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Use new primary color for shadow */
+}
+
+.drawer .login-form button {
+  margin-top: var(--space-3); /* Adjust margin */
+}
+
+.drawer .login-form p {
+  text-align: center;
+  margin: 0;
+}
+
+.drawer .login-form a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+}
+
+.drawer .login-form a:hover {
+  text-decoration: underline;
+}
+
+/* Backdrop */
+.drawer-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6); /* Darker backdrop */
+  z-index: var(--z-modal-backdrop);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-base);
+}
+
+.drawer-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .drawer--top {
+    top: 70px;
+    right: var(--space-2);
+    left: var(--space-2);
+    width: auto;
+  }
+  
+  .drawer--bottom {
+    width: 95%;
+    height: 55vh; /* Slightly taller on mobile */
+  }
+  
+  .drawer--left,
+  .drawer--right {
+    width: 280px;
+  }
+  
+  .drawer__content {
+    padding: var(--space-4);
+  }
+}
+
+@media (max-width: 480px) {
+  .drawer--top {
+    top: 60px;
+    right: var(--space-1);
+    left: var(--space-1);
+  }
+  
+  .drawer--bottom {
+    width: 98%;
+    height: 65vh; /* Even taller on small mobile */
+  }
+  
+  .drawer--left,
+  .drawer--right {
+    width: 100vw;
+    border-radius: 0;
+  }
+  
+  .drawer__close {
+    top: var(--space-3);
+    right: var(--space-3);
+    width: 36px;
+    height: 36px;
+  }
+  
+  .drawer__content {
+    padding: var(--space-3);
+  }
+}

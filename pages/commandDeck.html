@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Command Deck - 35Bird</title>
+  <meta name="description" content="Cockpit UI for AI-powered workflows. The Command Deck is a futuristic control panel for managing ChatGPT threads, memory streams, and AI agents.">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="../styles/main.css">
+  
+  <style>
+    .page {
+      background-image: url('../assets/images/commandDeck.png') !important;
+      background-size: cover !important;
+      background-repeat: no-repeat !important;
+      background-attachment: fixed !important;
+    }
+  </style>
+</head>
+<body class="page">
+  <!-- Header -->
+  <header class="header" role="banner">
+    <a href="../index.html" class="header__logo">35BIRD</a>
+    <nav class="header__nav" role="navigation">
+      <div class="dropdown">
+        <a href="#" class="dropdown__toggle">Projects</a>
+        <div class="dropdown__menu" id="projects-dropdown">
+          <!-- Projects will be populated by JavaScript -->
+        </div>
+      </div>
+      <a href="../index.html#info" class="header__nav-link">Info</a>
+      <a href="../index.html#contact" class="header__nav-link">Contact</a>
+      <a href="#" class="header__nav-link" id="login-trigger">Login</a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="project-splash" role="main">
+    <h1 class="project-splash__title" id="project-title">Command Deck</h1>
+    <div class="project-splash__meta">
+      <span class="project-status" id="project-status">In Progress</span>
+    </div>
+    <p class="project-splash__tagline" id="project-tagline">Cockpit UI for AI-powered workflows</p>
+    <div class="project-splash__description" id="project-description">
+      The Command Deck is a futuristic control panel designed to manage ChatGPT threads, memory streams, and AI agents. Built for developers who want total control over prompt workflows and interaction logic.
+    </div>
+  </main>
+
+  <!-- Drawers and UI Components -->
+  <div id="login-drawer" class="drawer drawer--top" role="dialog" aria-hidden="true">
+    <button class="drawer__close" aria-label="Close">&times;</button>
+    <div class="drawer__content">
+      <form class="login-form">
+        <h3>Login</h3>
+        <label for="login-email">Email</label>
+        <input type="email" id="login-email" placeholder="you@example.com" required>
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" placeholder="Password" required>
+        <button type="submit" class="btn btn--primary">Login</button>
+        <p><a href="#">Create account</a></p>
+      </form>
+    </div>
+  </div>
+
+  <div id="history-drawer" class="drawer drawer--bottom" role="dialog" aria-hidden="true">
+    <button class="drawer__close" aria-label="Close">&times;</button>
+    <div class="drawer__content">
+      <h3>Version History</h3>
+      <pre id="version-history-content">Loading version history...</pre>
+    </div>
+  </div>
+
+  <button id="version-trigger" class="version-tab" aria-label="View version history">📜</button>
+  <div class="theme-switcher"></div>
+
+  <script type="module">
+    import { dom } from '../utils/dom.js';
+    import { projectsAPI } from '../utils/api.js';
+    import { themeManager } from '../utils/theme.js';
+
+    dom.ready(async () => {
+      // Initialize theme
+      themeManager.init();
+      
+      // Load project data
+      await loadProjectData();
+      
+      // Setup dropdowns and drawers
+      setupUI();
+      
+      // Load version history
+      loadVersionHistory();
+    });
+
+    async function loadProjectData() {
+      try {
+        const response = await fetch('../data/projects.json');
+        const projects = await response.json();
+        
+        const project = projects.find(p => p.slug === 'commandDeck');
+        if (project) {
+          updateProjectContent(project);
+        }
+        
+        const otherProjects = projects.filter(p => p.slug !== 'commandDeck');
+        populateProjectsDropdown(otherProjects);
+      } catch (error) {
+        console.error('Failed to load project data:', error);
+      }
+    }
+
+    function updateProjectContent(project) {
+      dom.$('#project-title').textContent = project.title;
+      dom.$('#project-tagline').textContent = project.tagline;
+      dom.$('#project-description').textContent = project.description;
+      dom.$('#project-status').textContent = project.status;
+    }
+
+    function populateProjectsDropdown(projects) {
+      const dropdown = dom.$('#projects-dropdown');
+      if (!dropdown) return;
+      
+      dropdown.innerHTML = '';
+      projects.forEach(project => {
+        const link = dom.create('a', {
+          href: `${project.slug}.html`,
+          className: 'dropdown__menu-item'
+        }, project.title);
+        dropdown.appendChild(link);
+      });
+    }
+
+    function setupUI() {
+      // Dropdown functionality
+      const dropdownToggle = dom.$('.dropdown__toggle');
+      const dropdown = dom.$('.dropdown');
+      
+      dropdownToggle?.addEventListener('click', (e) => {
+        e.preventDefault();
+        dom.toggleClass(dropdown, 'dropdown--active');
+      });
+
+      // Close dropdown on outside click
+      document.addEventListener('click', (e) => {
+        if (dropdown && !dropdown.contains(e.target)) {
+          dom.removeClass(dropdown, 'dropdown--active');
+        }
+      });
+
+      // Drawer functionality
+      setupDrawers();
+    }
+
+    function setupDrawers() {
+      const loginTrigger = dom.$('#login-trigger');
+      const loginDrawer = dom.$('#login-drawer');
+      const historyTrigger = dom.$('#version-trigger');
+      const historyDrawer = dom.$('#history-drawer');
+      const closeButtons = dom.$$('.drawer__close');
+
+      loginTrigger?.addEventListener('click', (e) => {
+        e.preventDefault();
+        toggleDrawer(loginDrawer);
+      });
+
+      historyTrigger?.addEventListener('click', (e) => {
+        e.preventDefault();
+        toggleDrawer(historyDrawer);
+      });
+
+      closeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const drawer = button.closest('.drawer');
+          closeDrawer(drawer);
+        });
+      });
+
+      document.addEventListener('click', (e) => {
+        if (loginDrawer?.classList.contains('drawer--active') && 
+            !loginDrawer.contains(e.target) && e.target !== loginTrigger) {
+          closeDrawer(loginDrawer);
+        }
+        if (historyDrawer?.classList.contains('drawer--active') && 
+            !historyDrawer.contains(e.target) && e.target !== historyTrigger) {
+          closeDrawer(historyDrawer);
+        }
+      });
+    }
+
+    function toggleDrawer(drawer) {
+      if (!drawer) return;
+      const isActive = drawer.classList.contains('drawer--active');
+      if (isActive) {
+        closeDrawer(drawer);
+      } else {
+        openDrawer(drawer);
+      }
+    }
+
+    function openDrawer(drawer) {
+      if (!drawer) return;
+      drawer.classList.add('drawer--active');
+      drawer.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('drawer-open');
+    }
+
+    function closeDrawer(drawer) {
+      if (!drawer) return;
+      drawer.classList.remove('drawer--active');
+      drawer.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('drawer-open');
+    }
+
+    async function loadVersionHistory() {
+      try {
+        const response = await fetch('../versionHistory.md');
+        const content = await response.text();
+        const historyContent = dom.$('#version-history-content');
+        if (historyContent) {
+          historyContent.textContent = content;
+        }
+      } catch (error) {
+        console.error('Failed to load version history:', error);
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+/* Header Component */
+.header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-bg-header, rgba(0, 0, 0, 0.7));
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid var(--color-border-header, rgba(255, 255, 255, 0.1));
+  color: var(--color-text-primary);
+  padding: var(--space-4) var(--space-8); /* Balanced left/right spacing */
+  font-weight: var(--font-weight-bold);
+  z-index: var(--z-sticky);
+  box-shadow: var(--shadow-sm); /* Use a more subtle shadow */
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+.header__logo {
+  text-decoration: none;
+  color: inherit;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-xl);
+  transition: transform var(--transition-base);
+}
+
+.header__logo:hover {
+  transform: scale(1.02);
+  text-decoration: none;
+  color: var(--color-primary);
+}
+
+.header__nav {
+  display: flex;
+  align-items: center;
+  gap: 0px; /* Reduced by additional 5px - effectively no spacing between menu items */
+  transform: translateX(10px); /* Move all menu items 10px to the right (30% of 32px right padding) */
+  margin-left: -5px; /* Reduce space between menu items by 5px */
+}
+
+.header__nav-link {
+  text-decoration: none;
+  color: inherit;
+  font-weight: var(--font-weight-medium); /* Slightly lighter font weight */
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-base);
+  transition: color 0.3s, transform 0.3s;
+  position: relative;
+}
+
+.header__nav-link:hover {
+  background-color: var(--color-bg-primary); /* Subtle background change on hover */
+  color: var(--color-primary); /* Highlight text on hover */
+  text-decoration: none;
+  transform: scale(1.15);
+}
+
+/* Theme-specific hover colors for better contrast - using CSS variables */
+[data-theme="classic"] .header__nav-link:hover {
+  color: var(--color-primary); /* Using CSS variable for consistency */
+}
+
+[data-theme="dark"] .header__nav-link:hover {
+  color: var(--color-primary); /* Using CSS variable for consistency */
+}
+
+/* Improve header for light theme */
+[data-theme="classic"] .header {
+  background: var(--color-bg-header, rgba(255, 255, 255, 0.8));
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-border-header, rgba(0, 0, 0, 0.05));
+}
+
+/* Strengthen text contrast in light theme - using CSS variables */
+[data-theme="classic"] .header__nav-link {
+  color: var(--color-text-primary); /* Using CSS variable for consistency */
+}
+
+[data-theme="classic"] .header__nav-link:hover {
+  color: var(--color-primary);
+}
+
+/* Light theme header styling - improved transparency per rE21.md */
+body[data-theme="light"] .header {
+  background: var(--color-bg-header, rgba(255, 255, 255, 0.8));
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid var(--color-border-header, rgba(200, 200, 200, 0.3));
+  color: var(--color-text-primary);
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+body[data-theme="light"] .header__nav-link {
+  color: var(--color-text-primary);
+}
+
+body[data-theme="light"] .header__nav-link:hover {
+  color: var(--color-primary);
+}
+
+body[data-theme="light"] .header__logo,
+[data-theme="light"] .header__logo,
+[data-theme="classic"] .header__logo {
+  color: var(--color-text-primary) !important;
+}
+
+.header__nav-link:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Mobile responsive header */
+@media (max-width: 768px) {
+  .header {
+    padding: var(--space-3) var(--space-4);
+  }
+  
+  .header__logo {
+    font-size: var(--font-size-lg);
+  }
+  
+  .header__nav {
+    gap: var(--space-3);
+  }
+  
+  .header__nav-link {
+    padding: var(--space-1) var(--space-2);
+    font-size: var(--font-size-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: var(--space-3) var(--space-2);
+  }
+  
+  .header__nav {
+    gap: var(--space-2);
+  }
+  
+  .header__nav-link {
+    padding: var(--space-1);
+  }
+}

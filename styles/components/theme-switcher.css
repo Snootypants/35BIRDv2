@@ -1,0 +1,55 @@
+/* Theme toggle and version button - Now integrated in header nav */
+.header__nav-link.theme-toggle,
+.header__nav-link.version-button {
+  /* Reset floating styles - now integrated in header */
+  position: unset;
+  bottom: unset;
+  right: unset;
+  left: unset;
+  background: none;
+  backdrop-filter: none;
+  border: none;
+  width: auto;
+  height: auto;
+  box-shadow: none;
+  border-radius: var(--radius-base);
+  
+  /* Inherit header nav link styling */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header__nav-link.theme-toggle img,
+.header__nav-link.version-button img {
+  /* Icon styling for header integration */
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+
+/* Hover states to match header nav links */
+.header__nav-link.theme-toggle:hover,
+.header__nav-link.version-button:hover {
+  background-color: var(--color-bg-primary);
+  color: var(--color-primary);
+  transform: none; /* Remove floating transform effects */
+  box-shadow: none; /* Remove floating box-shadow effects */
+}
+
+/* Mobile responsive - icons scale with header nav */
+@media (max-width: 768px) {
+  .header__nav-link.theme-toggle img,
+  .header__nav-link.version-button img {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header__nav-link.theme-toggle img,
+  .header__nav-link.version-button img {
+    width: 16px;
+    height: 16px;
+  }
+}

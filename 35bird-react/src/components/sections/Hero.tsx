@@ -13,7 +13,7 @@ function Hero() {
         <motion.img 
           src="/images/Orange bird.png" 
           alt="35Bird Logo" 
-          className="hero__logo w-75 h-75 mb-8"
+          className="hero__logo w-[18.75rem] h-[18.75rem] mb-8"
           width="300"
           height="300"
           initial={{ rotate: -10, y: -20 }}

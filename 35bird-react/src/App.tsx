@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useTheme } from './hooks/useTheme'
 import Header from './components/layout/Header'
 import Hero from './components/sections/Hero'
@@ -9,15 +9,12 @@ function App() {
   const { theme, toggleTheme } = useTheme()
 
   return (
-    <AnimatePresence>
-      <motion.div 
-        key={theme}
-        className={`min-h-screen ${theme === 'dark' ? 'dark' : ''}`}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.3 }}
-      >
+    <motion.div 
+      className={`min-h-screen ${theme === 'dark' ? 'dark' : ''}`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+    >
         <div className="page bg-background text-foreground">
         {/* Fluid Background Canvas */}
         <canvas id="fluid-canvas" className="fixed inset-0 z-0" />
@@ -38,8 +35,7 @@ function App() {
           </section>
         </main>
         </div>
-      </motion.div>
-    </AnimatePresence>
+    </motion.div>
   )
 }
 

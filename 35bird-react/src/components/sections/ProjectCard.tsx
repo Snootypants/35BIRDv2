@@ -71,11 +71,11 @@ function ProjectCard({ project }: ProjectCardProps) {
           </div>
           
           {project.links.live && (
-            <Button asChild>
-              <a href={project.links.live}>
+            <a href={project.links.live} className="inline-block">
+              <Button>
                 View Project
-              </a>
-            </Button>
+              </Button>
+            </a>
           )}
         </CardContent>
       </Card>

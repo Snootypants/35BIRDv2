@@ -13,9 +13,13 @@ function Hero() {
         <motion.img 
           src="/images/Orange bird.png" 
           alt="35Bird Logo" 
-          className="hero__logo w-[18.75rem] h-[18.75rem] mb-8"
+          className="hero__logo w-48 h-48 sm:w-[18.75rem] sm:h-[18.75rem] mb-6 sm:mb-8"
           width="300"
           height="300"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.style.display = 'none';
+          }}
           initial={{ rotate: -10, y: -20 }}
           animate={{ rotate: 0, y: 0 }}
           transition={{ duration: 1, delay: 0.2 }}

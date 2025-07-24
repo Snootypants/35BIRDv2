@@ -15,7 +15,7 @@ function ProjectGrid() {
 
   return (
     <motion.div 
-      className="projects-grid grid grid-cols-1 md:grid-cols-2 gap-6 pt-20" 
+      className="projects-grid grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 pt-16 sm:pt-20 px-4 sm:px-0" 
       role="region" 
       aria-label="Project showcase"
       initial={{ opacity: 0, y: 50 }}

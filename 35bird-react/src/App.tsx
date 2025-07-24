@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion'
+import { Routes, Route } from 'react-router-dom'
 import { useTheme } from './hooks/useTheme'
 import Header from './components/layout/Header'
-import Hero from './components/sections/Hero'
-import ProjectGrid from './components/sections/ProjectGrid'
+import HomePage from './components/layout/HomePage'
+import NotFound from './components/layout/NotFound'
 import './App.css'
 
 function App() {
@@ -24,15 +25,10 @@ function App() {
         
         {/* Main Content */}
         <main className="main relative z-10" role="main">
-          {/* Hero Section */}
-          <Hero />
-          
-          {/* Projects Section */}
-          <section className="section" id="projects">
-            <div className="container">
-              <ProjectGrid />
-            </div>
-          </section>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </main>
         </div>
     </motion.div>
